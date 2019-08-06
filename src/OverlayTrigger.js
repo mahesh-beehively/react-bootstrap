@@ -187,7 +187,13 @@ class OverlayTrigger extends React.Component {
   }
 
   handleHide() {
-    this.hide();
+    if (this.props.preventHide) {
+      if (!this.props.preventHide()) {
+        this.hide();
+      }
+    } else {
+      this.hide();
+    }
   }
 
   // Simple implementation of mouseEnter and mouseLeave.
