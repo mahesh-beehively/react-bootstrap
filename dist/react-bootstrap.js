@@ -14643,13 +14643,7 @@ function (_React$Component) {
   };
 
   _proto.handleHide = function handleHide() {
-    if (this.props.preventHide) {
-      if (!this.props.preventHide()) {
-        this.hide();
-      }
-    } else {
-      this.hide();
-    }
+    this.hide();
   }; // Simple implementation of mouseEnter and mouseLeave.
   // React's built version is broken: https://github.com/facebook/react/issues/4251
   // for cases when the trigger is disabled and mouseOut/Over can cause flicker
@@ -14674,9 +14668,11 @@ function (_React$Component) {
   };
 
   _proto.hide = function hide() {
-    this.setState({
-      show: false
-    });
+    if (!this.props.preventHide || !this.props.preventHide()) {
+      this.setState({
+        show: false
+      });
+    }
   };
 
   _proto.makeOverlay = function makeOverlay(overlay, props) {
@@ -14686,7 +14682,7 @@ function (_React$Component) {
       target: this,
       __source: {
         fileName: OverlayTrigger_jsxFileName,
-        lineNumber: 226
+        lineNumber: 222
       },
       __self: this
     }), overlay);

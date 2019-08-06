@@ -187,13 +187,7 @@ class OverlayTrigger extends React.Component {
   }
 
   handleHide() {
-    if (this.props.preventHide) {
-      if (!this.props.preventHide()) {
-        this.hide();
-      }
-    } else {
-      this.hide();
-    }
+    this.hide();
   }
 
   // Simple implementation of mouseEnter and mouseLeave.
@@ -218,7 +212,9 @@ class OverlayTrigger extends React.Component {
   }
 
   hide() {
-    this.setState({ show: false });
+    if (!this.props.preventHide || !this.props.preventHide()) {
+      this.setState({ show: false });
+    }
   }
 
   makeOverlay(overlay, props) {
